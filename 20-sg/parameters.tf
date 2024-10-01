@@ -19,5 +19,5 @@ resource "aws_ssm_parameter" "frontend_sg_id" {
 resource "aws_ssm_parameter" "bastian_sg_id" {
   name  = "/${var.project}/${var.environment}/bastian_sg_id"
   type  = "String"
-  value = module.backend_sg.sg_id
+  value = module.bastian_sg.sg_id
 }
