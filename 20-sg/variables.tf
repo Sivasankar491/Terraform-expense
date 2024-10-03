@@ -18,7 +18,7 @@ variable "frontend_sg_name" {
     default = "frontend"
 }
 
-variable "bastian_sg_name" {
+variable "bastion_sg_name" {
     default = "bastian"
 }
 
@@ -47,8 +47,8 @@ variable "frontend_sg_tags" {
     }
 }
 
-variable "bastian_sg_tags" {
+variable "bastion_sg_tags" {
     default = {
-        Component = "Bastian"
+        Component = "Bastion"
     }
 }
