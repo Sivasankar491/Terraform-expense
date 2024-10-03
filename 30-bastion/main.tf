@@ -7,7 +7,7 @@ module "bastion" {
   instance_type          = "t3.micro"
 #   key_name               = "user1"
 #   monitoring             = true
-  vpc_security_group_ids = [local.bastian_sg_id]
+  vpc_security_group_ids = [local.bastion_sg_id]
   subnet_id              = local.public_subnet_id
 
   tags = merge(
