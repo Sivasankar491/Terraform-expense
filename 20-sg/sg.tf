@@ -1,6 +1,6 @@
 module "mysql_sg" {
-    # source = "../Terraform-sg-module"
-    source = "../../Terraform-sg-module"
+    # source = "../../Terraform-sg-module"
+    source = "git::https://github.com/Sivasankar491/Terraform-sg-module.git?ref=main"
     project = var.project
     environment = var.environment
     sg_name = var.mysql_sg_name
@@ -10,8 +10,8 @@ module "mysql_sg" {
 }
 
 module "backend_sg" {
-    # source = "../Terraform-sg-module"
-    source = "../../Terraform-sg-module"
+    # source = "../../Terraform-sg-module"
+    source = "git::https://github.com/Sivasankar491/Terraform-sg-module.git?ref=main"
     project = var.project
     environment = var.environment
     sg_name = var.backend_sg_name
@@ -21,8 +21,8 @@ module "backend_sg" {
 }
 
 module "frontend_sg" {
-    # source = "../Terraform-sg-module"
-    source = "../../Terraform-sg-module"
+    # source = "../../Terraform-sg-module"
+    source = "git::https://github.com/Sivasankar491/Terraform-sg-module.git?ref=main"
     project = var.project
     environment = var.environment
     sg_name = var.frontend_sg_name
