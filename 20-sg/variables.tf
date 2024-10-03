@@ -22,6 +22,10 @@ variable "bastion_sg_name" {
     default = "bastian"
 }
 
+variable "ansible_sg_name" {
+    default = "Ansible"
+}
+
 variable "common_tags" {
     default = {
         Environment = "Dev"
@@ -50,5 +54,11 @@ variable "frontend_sg_tags" {
 variable "bastion_sg_tags" {
     default = {
         Component = "Bastion"
+    }
+}
+
+variable "ansible_sg_tags" {
+    default = {
+        Component = "Ansible"
     }
 }

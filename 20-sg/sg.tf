@@ -33,13 +33,24 @@ module "frontend_sg" {
 
 module "bastion_sg" {
     # source = "../Terraform-sg-module"
-    source = "../../Terraform-sg-module"
+    source = "git::https://github.com/Sivasankar491/Terraform-sg-module.git?ref=main"
     project = var.project
     environment = var.environment
     sg_name = var.bastion_sg_name
     vpc_id = local.vpc_id
     common_tags = var.common_tags
     sg_tags = var.bastion_sg_tags
+}
+
+module "ansible_sg" {
+    # source = "../Terraform-sg-module"
+    source = "git::https://github.com/Sivasankar491/Terraform-sg-module.git?ref=main"
+    project = var.project
+    environment = var.environment
+    sg_name = var.ansibe_sg_name
+    vpc_id = local.vpc_id
+    common_tags = var.common_tags
+    sg_tags = var.ansible_sg_tags
 }
 
 resource "aws_security_group_rule" "mysql_backend" {
@@ -106,6 +117,41 @@ resource "aws_security_group_rule" "frontend_bastian" {
 #   cidr_blocks       = ["0.0.0.0/0"]
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
   source_security_group_id = module.bastion_sg.id
+  security_group_id = module.frontend_sg.id
+}
+
+
+resource "aws_security_group_rule" "mysql_ansible" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+#   cidr_blocks       = ["0.0.0.0/0"]
+#   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
+  source_security_group_id = module.ansible_sg.id
+  security_group_id = module.mysql_sg.id
+}
+
+resource "aws_security_group_rule" "backend_ansible" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+#   cidr_blocks       = ["0.0.0.0/0"]
+#   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
+  source_security_group_id = module.ansible_sg.id
+  security_group_id = module.backend_sg.id
+}
+
+
+resource "aws_security_group_rule" "frontend_ansible" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+#   cidr_blocks       = ["0.0.0.0/0"]
+#   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
+  source_security_group_id = module.ansible_sg.id
   security_group_id = module.frontend_sg.id
 }
 
