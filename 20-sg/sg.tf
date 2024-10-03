@@ -49,8 +49,8 @@ resource "aws_security_group_rule" "mysql_backend" {
   protocol          = "tcp"
 #   cidr_blocks       = [aws_vpc.example.cidr_block]
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
-  source_security_group_id = module.bastion_sg.sg_id
-  security_group_id = module.mysql_sg.sg_id
+  source_security_group_id = module.backend_sg.id
+  security_group_id = module.mysql_sg.id
 }
 
 resource "aws_security_group_rule" "backend_frontend" {
@@ -60,8 +60,8 @@ resource "aws_security_group_rule" "backend_frontend" {
   protocol          = "tcp"
 #   cidr_blocks       = [aws_vpc.example.cidr_block]
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
-  source_security_group_id = module.frontend_sg.sg_id
-  security_group_id = module.backend_sg.sg_id
+  source_security_group_id = module.frontend_sg.id
+  security_group_id = module.backend_sg.id
 }
 
 resource "aws_security_group_rule" "frontend_public" {
@@ -72,7 +72,7 @@ resource "aws_security_group_rule" "frontend_public" {
   cidr_blocks       = ["0.0.0.0/0"]
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
 #   source_security_group_id = module.frontend_sg.sg_id
-  security_group_id = module.frontend_sg.sg_id
+  security_group_id = module.frontend_sg.id
 }
 
 resource "aws_security_group_rule" "mysql_bastion" {
@@ -82,8 +82,8 @@ resource "aws_security_group_rule" "mysql_bastion" {
   protocol          = "tcp"
 #   cidr_blocks       = ["0.0.0.0/0"]
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
-  source_security_group_id = module.bastion_sg.sg_id
-  security_group_id = module.mysql_sg.sg_id
+  source_security_group_id = module.bastion_sg.id
+  security_group_id = module.mysql_sg.id
 }
 
 resource "aws_security_group_rule" "backend_bastion" {
@@ -93,8 +93,8 @@ resource "aws_security_group_rule" "backend_bastion" {
   protocol          = "tcp"
 #   cidr_blocks       = ["0.0.0.0/0"]
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
-  source_security_group_id = module.bastion_sg.sg_id
-  security_group_id = module.backend_sg.sg_id
+  source_security_group_id = module.bastion_sg.id
+  security_group_id = module.backend_sg.id
 }
 
 
@@ -105,7 +105,7 @@ resource "aws_security_group_rule" "frontend_bastian" {
   protocol          = "tcp"
 #   cidr_blocks       = ["0.0.0.0/0"]
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
-  source_security_group_id = module.bastion_sg.sg_id
-  security_group_id = module.frontend_sg.sg_id
+  source_security_group_id = module.bastion_sg.id
+  security_group_id = module.frontend_sg.id
 }
 
