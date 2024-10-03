@@ -26,6 +26,7 @@ variable "ansible_sg_name" {
     default = "Ansible"
 }
 
+
 variable "common_tags" {
     default = {
         Environment = "Dev"

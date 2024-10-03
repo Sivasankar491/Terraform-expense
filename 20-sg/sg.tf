@@ -47,7 +47,7 @@ module "ansible_sg" {
     source = "git::https://github.com/Sivasankar491/Terraform-sg-module.git?ref=main"
     project = var.project
     environment = var.environment
-    sg_name = var.ansibe_sg_name
+    sg_name = var.ansible_sg_name
     vpc_id = local.vpc_id
     common_tags = var.common_tags
     sg_tags = var.ansible_sg_tags
@@ -153,5 +153,27 @@ resource "aws_security_group_rule" "frontend_ansible" {
 #   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
   source_security_group_id = module.ansible_sg.id
   security_group_id = module.frontend_sg.id
+}
+
+resource "aws_security_group_rule" "ansible_public" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+#   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
+#   source_security_group_id = module.frontend_sg.sg_id
+  security_group_id = module.ansible_sg.id
+}
+
+resource "aws_security_group_rule" "bastion_public" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+#   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
+#   source_security_group_id = module.frontend_sg.sg_id
+  security_group_id = module.bastion_sg.id
 }
 
