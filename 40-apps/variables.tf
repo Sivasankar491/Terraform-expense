@@ -12,3 +12,7 @@ variable "common_tags" {
         project = "Expense"
     }
 }
+
+variable "zone_name" {
+    default = "kotte.site"
+}
