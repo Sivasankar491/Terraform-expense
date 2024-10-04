@@ -64,7 +64,7 @@ module "ansible" {
 
   name = "${local.resource_name}-ansible"
   ami = data.aws_ami.devops.id
-  user_data = file(expense.sh)
+  user_data = file("expense.sh")
   
   instance_type          = "t3.micro"
 #   key_name               = "user1"
@@ -111,7 +111,7 @@ module "records" {
       name    = ""
       type    = "A"
       ttl     = 1
-      records = [module.frontend.private_ip]
+      records = [module.frontend.public_ip]
     }
   ]
 }
